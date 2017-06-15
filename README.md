@@ -1,6 +1,7 @@
 # YtGet
 
 **TODO: Add description**
+**TODO: YouTube page open function**
 
 ## Installation
 
