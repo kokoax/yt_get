@@ -37,7 +37,11 @@ defmodule YtGet do
   def get_url(movie_list) do
     movie_list
     |> at_movie(IO.gets "movie num > ")
-    |> IO.puts
+  end
+
+  def open_page(url) do
+    IO.inspect url
+    System.cmd("chromium", [url])
   end
 
   def loop(keyword, page) do
@@ -47,10 +51,14 @@ defmodule YtGet do
     movie_list |> print_title
 
     case IO.gets "> " do
+      "next\n" -> loop(keyword, page+1)
       "n\n" -> loop(keyword, page+1)
+      "prev\n" -> loop(keyword, page-1)
       "p\n" -> loop(keyword, page-1)
+      "quit\n" -> 0
       "q\n" -> 0
-      "u\n" -> movie_list |> get_url
+      "o\n" -> movie_list |> get_url |> open_page
+      "open\n" -> movie_list |> get_url |> open_page
       _     -> loop(keyword, page)
     end
   end
